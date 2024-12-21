@@ -10,12 +10,7 @@ class HTMLNODE:
 
     def to_html(self):
         raise NotImplementedError
-    
-    # def props_to_html(self):
-    #     href = self.props["href"]
-    #     target = self.props.get("target")
-    #     return f' href="{href}"' + (f' target="{target}"' if target else "")
-    #     #return f' href={self.props["href"]} target={self.props["target"]}'
+
 
     def props_to_html(self):
         if self.props is None:
@@ -33,7 +28,7 @@ class HTMLNODE:
         children_value = self.children.value if self.children else None
         props_value = ", ".join(f"{key}: {value}" for key, value in self.props.items()) if self.props else None
         return f"{class_name}({self.tag}, {self.value}, {children_value}, {props_value})"
-    
+
 
 class LeafNode(HTMLNODE):
     def __init__(self, tag, value, props = None):
@@ -44,15 +39,27 @@ class LeafNode(HTMLNODE):
             raise ValueError("Invalid HTML: no value")
         if self.tag is None:
             return self.value
-        # if self.tag == 'a':
-        #     return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
-        
-        # return f'<{self.tag}>{self.value}</{self.tag}>'
         return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
-    
+
     def __repr__(self):
         class_name = self.__class__.__name__
         props_value = ", ".join(f"{key}: {value}" for key, value in self.props.items()) if self.props else None
         return f"{class_name}({self.tag}, {self.value}, {props_value})"
 
-        
+
+class ParentNode(HTMLNODE):
+    def __init__(self, tag, children, props = None):
+        super().__init__(tag, None, children, props)
+
+    def to_html(self): #WIP
+        if self.tag is None:
+            raise ValueError("Invalid HTML: no tag")
+        if self.children is None:
+            raise ValueError("Invalid HTML: missing children")
+        return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
+
+    def __repr__(self): #WIP
+        class_name = self.__class__.__name__
+        props_value = ", ".join(f"{key}: {value}" for key, value in self.props.items()) if self.props else None
+        return f"{class_name}({self.tag}, {self.children}, {props_value})"
+
