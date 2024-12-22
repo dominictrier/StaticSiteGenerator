@@ -62,8 +62,8 @@ class ParentNode(HTMLNODE):
             if child.tag is None:
                 content += f'{child.value}'
             else:
-                content += f'<{child.tag}{child.value}</{child.tag}>'
-        return f'<{self.tag}{content}</{self.tag}>'
+                content += f'<{child.tag}>{child.value}</{child.tag}>'
+        return f'<{self.tag}>{content}</{self.tag}>'
 
 
     def __repr__(self): #WIP

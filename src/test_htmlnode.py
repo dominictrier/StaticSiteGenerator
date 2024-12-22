@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNODE, LeafNode
+from htmlnode import HTMLNODE, LeafNode, ParentNode
 
 # print("HTMLNODE imported successfully!")
 
@@ -62,6 +62,24 @@ class TestHTMLNODE(unittest.TestCase): #node = HTMLNODE("a", "this is an example
         node = LeafNode("a", "example text", {"href": "https://www.example.com"})
         result = node.to_html()
         assert result == '<a href="https://www.example.com">example text</a>'
+
+
+    # Test ParentNode
+
+    def test_ParentNode_to_html(self):
+        node = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text"),
+                ],
+                )
+        result = node.to_html()
+        assert result == '<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>'
+
+
 
 if __name__ == "__main__":
     unittest.main()
