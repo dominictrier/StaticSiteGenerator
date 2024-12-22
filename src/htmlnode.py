@@ -51,12 +51,20 @@ class ParentNode(HTMLNODE):
     def __init__(self, tag, children, props = None):
         super().__init__(tag, None, children, props)
 
-    def to_html(self): #WIP
+
+    def to_html(self):
         if self.tag is None:
             raise ValueError("Invalid HTML: no tag")
         if self.children is None:
             raise ValueError("Invalid HTML: missing children")
-        return f'<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>'
+        content = ""
+        for child in self.children:
+            if child.tag is None:
+                content += f'{child.value}'
+            else:
+                content += f'<{child.tag}{child.value}</{child.tag}>'
+        return f'<{self.tag}{content}</{self.tag}>'
+
 
     def __repr__(self): #WIP
         class_name = self.__class__.__name__
