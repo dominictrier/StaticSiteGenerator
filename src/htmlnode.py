@@ -59,14 +59,11 @@ class ParentNode(HTMLNODE):
             raise ValueError("Invalid HTML: missing children")
         content = ""
         for child in self.children:
-            if child.tag is None:
-                content += f'{child.value}'
-            else:
-                content += f'<{child.tag}>{child.value}</{child.tag}>'
+            content += f'<{child.tag}>{child.value}</{child.tag}>'
         return f'<{self.tag}>{content}</{self.tag}>'
 
 
-    def __repr__(self): #WIP
+    def __repr__(self):
         class_name = self.__class__.__name__
         props_value = ", ".join(f"{key}: {value}" for key, value in self.props.items()) if self.props else None
         return f"{class_name}({self.tag}, {self.children}, {props_value})"
