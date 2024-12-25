@@ -39,5 +39,5 @@ class TextNode:
         if self.TextType.LINK:
             return LeafNode("a", self.value, self.props)
         if self.TextType.IMAGE:
-            return LeafNode("img", self.value, self.props)
+            return LeafNode("img", None, self.props)
         

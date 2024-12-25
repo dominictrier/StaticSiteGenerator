@@ -4,6 +4,9 @@ from textnode import TextNode, TextType
 
 # print("TextNode imported successfully!")
 
+
+# Test Text Node
+
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
         node = TextNode("This is a text node", TextType.BOLD)
@@ -35,6 +38,11 @@ class TestTextNode(unittest.TestCase):
         assert empty_node.text == ""
         assert empty_node.text_type == TextType.NORMAL
         assert empty_node.url is None
+
+
+    # Test TextNode to HTMLNode
+
+    
 
 
 if __name__ == "__main__":
