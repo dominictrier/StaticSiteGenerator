@@ -77,7 +77,7 @@ class TestHTMLNODE(unittest.TestCase): #node = HTMLNODE("a", "this is an example
                 ],
                 )
         result = node.to_html()
-        assert result == '<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>'
+        assert result == '<p><b>Bold text</b><None>Normal text</None><i>italic text</i><None>Normal text</None></p>'
 
     
     def test_ParentNode_eq(self):

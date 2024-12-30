@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType
+from htmlnode import HTMLNODE, LeafNode, ParentNode
 
 # print("TextNode imported successfully!")
 
@@ -42,7 +43,10 @@ class TestTextNode(unittest.TestCase):
 
     # Test TextNode to HTMLNode
 
-    
+    def test_textnode_to_htmlnode_assert(self):
+        empty_textnode = TextNode("img", None, TextType.LINK, {"src": "https://www.examplelink.com", "alt": "this is an exmaple alt text"})
+        new_leafnode = empty_textnode.textnode_to_htmlnode()
+        print (new_leafnode)
 
 
 if __name__ == "__main__":

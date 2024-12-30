@@ -26,7 +26,7 @@ class TextNode:
     
 
     def textnode_to_htmlnode(self): #WIP
-        if self.text_typetype not in {texttype.value for texttype in TextType}:
+        if self.text_type not in {texttype.value for texttype in TextType}:
             raise Exception("unknown Text Type")
         if self.TextType.TEXT:
             return LeafNode(None, self.value)
