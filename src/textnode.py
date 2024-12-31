@@ -29,15 +29,15 @@ class TextNode:
         if self.text_type not in {texttype.value for texttype in TextType}:
             raise Exception("unknown Text Type")
         if self.TextType.TEXT:
-            return LeafNode(None, self.value)
+            return LeafNode(None, self.text)
         if self.TextType.BOLD:
-            return LeafNode("b", self.value)
+            return LeafNode("b", self.text)
         if self.TextType.ITALIC:
-            return LeafNode("i", self.value)
+            return LeafNode("i", self.text)
         if self.TextType.CODE:
-            return LeafNode("code", self.value)
+            return LeafNode("code", self.text)
         if self.TextType.LINK:
-            return LeafNode("a", self.value, self.props)
+            return LeafNode("link", self.text, {"href": self.url})
         if self.TextType.IMAGE:
-            return LeafNode("img", None, self.props)
+            return LeafNode("img", None, {"src":self.url, "alt": self.text})
         

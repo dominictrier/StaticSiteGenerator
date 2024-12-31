@@ -44,7 +44,7 @@ class TestTextNode(unittest.TestCase):
     # Test TextNode to HTMLNode
 
     def test_textnode_to_htmlnode_assert(self):
-        empty_textnode = TextNode("img", None, TextType.LINK, {"src": "https://www.examplelink.com", "alt": "this is an exmaple alt text"})
+        empty_textnode = TextNode("this is an exmaple alt text", TextType.LINK, "https://www.examplelink.com")
         new_leafnode = empty_textnode.textnode_to_htmlnode()
         print (new_leafnode)
 
