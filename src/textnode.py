@@ -25,19 +25,18 @@ class TextNode:
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
     
 
-    def textnode_to_htmlnode(self): #WIP
-        if self.text_type not in {texttype.value for texttype in TextType}:
-            raise Exception("unknown Text Type")
-        if self.TextType.TEXT:
+    def textnode_to_htmlnode(self):
+        if self.text_type == TextType.NORMAL:
             return LeafNode(None, self.text)
-        if self.TextType.BOLD:
+        if self.text_type == TextType.BOLD:
             return LeafNode("b", self.text)
-        if self.TextType.ITALIC:
+        if self.text_type == TextType.ITALIC:
             return LeafNode("i", self.text)
-        if self.TextType.CODE:
+        if self.text_type == TextType.CODE:
             return LeafNode("code", self.text)
-        if self.TextType.LINK:
-            return LeafNode("link", self.text, {"href": self.url})
-        if self.TextType.IMAGE:
-            return LeafNode("img", None, {"src":self.url, "alt": self.text})
-        
+        if self.text_type == TextType.LINK:
+            return LeafNode("a", self.text, {"href": self.url})
+        if self.text_type == TextType.IMAGE:
+            return LeafNode("img", "", {"src":self.url, "alt": self.text})
+        else:
+            raise Exception("unknown Text Type")
