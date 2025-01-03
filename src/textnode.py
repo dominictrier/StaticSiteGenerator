@@ -18,6 +18,8 @@ class TextNode:
 
 
     def __eq__(self, other):
+        if not isinstance(other, TextNode):
+            return False
         return self.__dict__ == other.__dict__
 
 

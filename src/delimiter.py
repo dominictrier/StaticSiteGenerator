@@ -27,4 +27,4 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     if delimiter_trigger == True:
         raise Exception("incomplete delimiter sequence")
 
-    return new_nodes       
+    return new_nodes      
