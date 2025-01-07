@@ -40,3 +40,56 @@ class TestSplitNodesDelimiter(unittest.TestCase):
             ]
 
         self.assertEqual(result,expected, "Test failed: test_split_nodes_links_basic")
+
+
+    def test_split_nodes_empty_text(self):
+        test_node = TextNode("", TextType.NORMAL)
+        
+        result = split_nodes_images([test_node])
+
+        expected = []
+
+        self.assertEqual(result, expected, "Test failed: test_split_nodes_empty_text")
+
+
+    def test_split_nodes_no_markdown(self):
+        test_node = TextNode("Just plain text here", TextType.NORMAL)
+
+        result = split_nodes_images([test_node])
+
+        expected = [TextNode("Just plain text here", TextType.NORMAL)]
+
+        self.assertEqual(result, expected, "Test failed: test_split_nodes_no_markdown")
+
+
+    def test_split_nodes_adjacent_markdown(self):
+        test_node = TextNode(
+            "![img1](url1.jpg)![img2](url2.jpg)", 
+            TextType.NORMAL
+            )
+        
+        result = split_nodes_images([test_node])
+
+        expected = [
+            TextNode("img1", TextType.IMAGE, "url1.jpg"),
+            TextNode("img2", TextType.IMAGE, "url2.jpg")
+            ]
+
+        self.assertEqual(result, expected, "Test failed: test_split_adjacent_markdown")
+
+
+    def test_split_nodes_single_char(self):
+        test_node = TextNode(
+            "a![img](url.jpg)b", 
+            TextType.NORMAL
+            )
+        
+        result = split_nodes_images([test_node])
+
+        expected = [
+            TextNode("a", TextType.NORMAL),
+            TextNode("img", TextType.IMAGE, "url.jpg"),
+            TextNode("b", TextType.NORMAL)
+            ]
+        
+        self.assertEqual(result, expected, "Test failed: test_split_nodes_single_char")
