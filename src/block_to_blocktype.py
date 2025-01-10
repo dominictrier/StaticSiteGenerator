@@ -4,7 +4,7 @@ import re
 def block_to_blocktype(markdown):
     if re.fullmatch(r"^#{1,6} .*", markdown, re.DOTALL):
         return "heading"
-    if re.fullmatch(r"^``` .* ```$", markdown.strip(), re.DOTALL):
+    if re.fullmatch(r"^```.*?```$", markdown.strip(), re.DOTALL):
         return "code"
     if re.fullmatch(r"^> .*", markdown.strip(), re.DOTALL):
         return "quote"
