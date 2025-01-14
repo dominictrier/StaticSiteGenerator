@@ -12,7 +12,9 @@ def markdown_to_html_node(markdown):
             result = header_to_html(block)
             htmlnodes.append(result)
         if block_type == "code":
-            result = 
+            result = code_to_html(block)
+            print(result.to_html())
+            htmlnodes.append(result)
 
 
 
@@ -34,7 +36,12 @@ def header_to_html(markdown):
 
 
 def code_to_html(markdown):
-    text = 
+    text = markdown.split("```")
+    value = text[1]
+    node_code = LeafNode("code", value).to_html()
+    node_pre = LeafNode('pre', node_code)
+    print(node_pre)
+    return node_pre
     
 
 
@@ -57,6 +64,8 @@ def code_to_html(markdown):
 test_markdown = """### This is a heading
 
 This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+
+```this is some cool code```
 
 * This is the first list item in a list block
 * This is a list item
