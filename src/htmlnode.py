@@ -61,7 +61,7 @@ class ParentNode(HTMLNODE):
             raise ValueError("Invalid HTML: missing children")
         content = ""
         for child in self.children:
-            content += f'<{child.tag}>{child.value}</{child.tag}>'
+            content += child.to_html()
         return f'<{self.tag}>{content}</{self.tag}>'
 
 
