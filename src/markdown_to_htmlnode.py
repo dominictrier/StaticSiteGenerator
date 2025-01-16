@@ -13,17 +13,15 @@ def markdown_to_html_node(markdown):
         if block_type == "heading":
             result = header_to_html(block)
             htmlnodes.append(result)
-            print(f"check here: {htmlnodes}")
         if block_type == "code":
             result = code_to_html(block)
             htmlnodes.append(result)
-
-
-
-
-
-
-
+        if block_type == "quote":
+            result = quote_to_html(block)
+            htmlnodes.append(result)
+        if block_type == "unordered list" or "ordered list":
+            result = list_to_html(block)
+            htmlnodes.append(result)
 
     return "nothing"
 
@@ -35,7 +33,6 @@ def header_to_html(markdown):
     children = text_to_children(text[1])
     node = ParentNode(f'h{amount}', children)
     node_html = node.to_html()
-    
     return node_html
 
 
@@ -43,17 +40,46 @@ def code_to_html(markdown):
     text = markdown.split("```")
     value = text[1]
     node_code = LeafNode("code", value).to_html()
-    node_pre = LeafNode('pre', node_code)
+    node_pre = LeafNode('pre', node_code).to_html()
     return node_pre
 
 
-def text_to_children(markdown):
-    child_nodes = []
-    text_nodes = text_to_textnodes(markdown)
-    for node in text_nodes:
-        child_nodes.append(node.textnode_to_htmlnode())
+def quote_to_html(markdown):
+    children = []
+    for line in markdown.splitlines():
+        text_body = line.split(" ", 1)[1]
+        nodes = text_to_children(text_body)
+        children.append(ParentNode("p", nodes))
+    return ParentNode("blockquote", children).to_html()
 
-    return child_nodes
+
+def list_to_html(markdown):
+
+
+
+
+    #return result
+
+        
+
+
+
+
+# def text_to_children(markdown):
+#     child_nodes = []
+#     text_nodes = text_to_textnodes(markdown)
+#     for node in text_nodes:
+#         child_nodes.append(node.textnode_to_htmlnode())
+
+#     return child_nodes
+
+def text_to_children(markdown):
+    text_nodes = text_to_textnodes(markdown)
+    processed_nodes = [node.textnode_to_htmlnode() for node in text_nodes]
+    return processed_nodes
+
+
+
 
 
 
@@ -78,9 +104,17 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
 ```this is some cool code```
 
-* This is the first list item in a list block
-* This is a list item
-* This is another list item"""
+> quote line 1 with *italic* text
+> quote line 2 with **bold** text
+> quote line 3
+
+* This is the first *list* item in a list block
+* This is a **list** item
+* This is another list item
+
+1. list one
+2. list two
+3. list three"""
 
 test = markdown_to_html_node(test_markdown)
-print(test)
+#print(test)
