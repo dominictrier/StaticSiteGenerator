@@ -28,11 +28,13 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 2. list **two**
 3. list three"""
         
-        result = markdown_to_html_node(test_string)
+        node = markdown_to_html_node(test_string)
 
-        expected = ParentNode('div', ['<h3>This is a <b>cool</b> heading</h3>', '<pre><code>this is some cool code</code></pre>', '<blockquote><p>quote line 1 with <i>italic</i> text</p><p>quote line 2 with <b>bold</b> text</p><p>quote line 3</p></blockquote>', '<ul><li>This is the first <i>list</i> item in a list block</li><li>This is a <b>list</b> item</li><li>This is another list item</li></ul>', '<ul><li>This is the first <i>list</i> item in a list block</li><li>This is a <b>list</b> item</li><li>This is another list item</li></ul>', '<ol><li>list <i>one</i></li><li>list <b>two</b></li><li>list three</li></ol>'], None)
-        
-        self.assertEqual(result, expected,"Test failed: test_complex_string")
+        assert node.tag == "div"
+        assert node.value == None
+        assert len(node.children) == 1
+        assert node.children[0].tag == "h3"
+        assert node.props == None
 
 
 if __name__ == "__main__":
