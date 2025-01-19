@@ -24,6 +24,9 @@ def markdown_to_html_node(markdown):
         if block_type == "ordered list":
             result = ol_list_to_html(block)
             htmlnodes.append(result)
+        if block_type == "paragraph":
+            result = paragraph_to_html(block)
+            htmlnodes.append(result)
     return ParentNode("div", htmlnodes)
 
 
@@ -69,6 +72,14 @@ def ol_list_to_html(markdown):
         nodes = text_to_children(text_body)
         children.append(ParentNode("li", nodes))
     return ParentNode("ol", children).to_html()
+
+
+def paragraph_to_html(markdown):
+    children = []
+    for line in markdown.splitlines():
+        nodes = text_to_children(line)
+        children.append(ParentNode("p", nodes))
+    return ParentNode("p", children).to_html()
 
 
 def text_to_children(markdown):
