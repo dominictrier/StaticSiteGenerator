@@ -76,9 +76,12 @@ def ol_list_to_html(markdown):
 
 def paragraph_to_html(markdown):
     children = []
-    for line in markdown.splitlines():
+    lines = markdown.splitlines()
+    for i, line in enumerate(lines):
         nodes = text_to_children(line)
-        children.append(ParentNode("p", nodes))
+        children.extend(nodes)
+        if i < len(lines) - 1:
+            children.append(LeafNode(None, "<br>"))
     return ParentNode("p", children).to_html()
 
 

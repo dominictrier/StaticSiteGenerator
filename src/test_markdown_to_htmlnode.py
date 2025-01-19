@@ -37,8 +37,8 @@ This is a new paragraph line
             'div',
             [
                 '<h3>This is a <b>cool</b> heading</h3>',
-                '<p><li>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.</li><li>This is a second line o paragraph code with <b>bold</b> test.</li></p>',
-                '<p><li>This is a new paragraph line</li></p>',
+                '<p>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.<br>This is a second line o paragraph code with <b>bold</b> test.</p>',
+                '<p>This is a new paragraph line</p>',
                 '<pre><code>this is some cool code</code></pre>',
                 '<blockquote><p>quote line 1 with <i>italic</i> text</p><p>quote line 2 with <b>bold</b> text</p><p>quote line 3</p></blockquote>',
                 '<ul><li>This is the first <i>list</i> item in a list block</li><li>This is a <b>list</b> item</li><li>This is another list item</li></ul>',
@@ -46,6 +46,7 @@ This is a new paragraph line
                 '<ol><li>list <i>one</i></li><li>list <b>two</b></li><li>list three</li></ol>'
                 ]
                 )
+
 
         result = markdown_to_html_node(test_string)
 
