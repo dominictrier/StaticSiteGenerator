@@ -75,31 +75,3 @@ def text_to_children(markdown):
     text_nodes = text_to_textnodes(markdown)
     processed_nodes = [node.textnode_to_htmlnode() for node in text_nodes]
     return processed_nodes
-
-
-# testing area
-
-test_markdown = """### This is a **cool** heading
-
-This is a paragraph of text. It has some **bold** and *italic* words inside of it.
-
-```this is some cool code```
-
-> quote line 1 with *italic* text
-> quote line 2 with **bold** text
-> quote line 3
-
-- This is the first *list* item in a list block
-- This is a **list** item
-- This is another list item
-
-* This is the first *list* item in a list block
-* This is a **list** item
-* This is another list item
-
-1. list *one*
-2. list **two**
-3. list three"""
-
-test = markdown_to_html_node(test_markdown)
-print(test)
