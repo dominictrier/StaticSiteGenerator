@@ -13,5 +13,5 @@
 
 test = ["a","b","c"]
 
-for letter, count in test:
-    new_letter = 
+for count, letter in enumerate(test):
+    print(count, letter)
