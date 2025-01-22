@@ -9,14 +9,19 @@ def delete_all_content(dir: str):
         raise Exception("directory does not exists")
     dir_content = os.listdir(dir)
     for item in dir_content:
-        if os.path.isfile(item):
-            os.remove(item)
-        if os.path.isdir(item):
-            shutil.rmtree(item)
+        path = os.path.join(dir, item)
+        if os.path.isfile(path):
+            os.remove(path)
+        if os.path.isdir(path):
+            shutil.rmtree(path)
     print(f"content of directory {dir} sucessfully deleted")
 
 
-
+def print_files_in_dir(dir: str):
+    dir_content = os.listdir(dir)
+    for item in dir_content:
+        full_path = os.path.join(dir, item)
+        print(full_path)
 
 
 def move_folder_cotent(source, target):
@@ -29,13 +34,8 @@ def move_folder_cotent(source, target):
 def main():
     static = "./static/"
     public = "./public/"
-    dir_static = os.listdir(static)
-    dir_public = os.listdir(public)
-    for item in dir_static:
-        print(f'static {item}')
+    testing = "./testing"
 
-    for item in dir_public:
-        print(f'public {item}')
 
 
 if __name__ == "__main__":
