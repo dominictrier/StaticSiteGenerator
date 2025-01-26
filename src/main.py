@@ -1,5 +1,7 @@
 import os
 import shutil
+import re
+import markdown_to_htmlnode
 
 
 def clean_dir(dir: str):
@@ -63,6 +65,33 @@ def main():
         clean_dir(target)
     recursive_copy_content(source, target)
     clean_dir(source)
+
+def exctract_title(markdown):
+    line_rows = markdown.splitlines()
+    for line in line_rows:
+        if line.startswith("# "):
+            return line.split(" ", 1)[1]
+    raise Exception("no h1 Headline found")
+
+
+def generate_page(from_path, template_path, dest_path):
+    print(f'Generating page from {from_path} to {dest_path} using {template_path}')
+    with open(from_path, 'r', encoding='utf-8') as f:
+        raw_markdown = f.read()
+    with open(template_path, 'r', encoding='utf-8') as f:
+        raw_template = f.read()
+    markdown_html = markdown_to_htmlnode(raw_markdown)
+    markdown_headline = exctract_title(raw_markdown)
+    updated_template = raw_template.replace('{{ Title }}', markdown_headline)
+    updated_template = updated_template.replace('{{ Content }}', markdown_html)
+    assure_exists(dest_path, create='yes')
+    
+
+    
+    
+
+
+
 
 
 if __name__ == "__main__":
