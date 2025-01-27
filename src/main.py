@@ -56,6 +56,9 @@ def dir_isempty(dir: str):
 def main():
     source = "./static/"
     target = "./public/"
+    source_path = "./content/index.md"
+    temp_path = "./template.html"
+    dest_path = "./public/index.html"
     assure_exists(target, "yes")
     if not assure_exists(source):
         raise Exception("no source directory")
@@ -65,6 +68,10 @@ def main():
         clean_dir(target)
     recursive_copy_content(source, target)
     clean_dir(source)
+    os.makedirs(os.path.dirname(dest_path))
+    generate_page(source_path, temp_path, dest_path)
+
+
 
 def exctract_title(markdown):
     line_rows = markdown.splitlines()
@@ -84,8 +91,13 @@ def generate_page(from_path, template_path, dest_path):
     markdown_headline = exctract_title(raw_markdown)
     updated_template = raw_template.replace('{{ Title }}', markdown_headline)
     updated_template = updated_template.replace('{{ Content }}', markdown_html)
-    assure_exists(dest_path, create='yes')
+    with open(dest_path, 'w') as d:
+        d.write(updated_template)
     
+  
+
+
+
 
     
     
