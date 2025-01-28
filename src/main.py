@@ -1,8 +1,7 @@
 import os
 import shutil
-import re
 import markdown_to_htmlnode
-
+from htmlnode import ParentNode
 
 def clean_dir(dir: str):
     if not os.path.exists(dir):
@@ -53,6 +52,30 @@ def dir_isempty(dir: str):
     return False
 
 
+def exctract_title(markdown):
+    line_rows = markdown.splitlines()
+    for line in line_rows:
+        if line.startswith("# "):
+            return line.split(" ", 1)[1]
+    raise Exception("no h1 Headline found")
+
+
+def generate_page(from_path, template_path, dest_path):
+    print(f'Generating page from {from_path} to {dest_path} using {template_path}')
+    with open(from_path, 'r', encoding='utf-8') as f:
+        raw_markdown = f.read()
+    with open(template_path, 'r', encoding='utf-8') as t:
+        raw_template = t.read()
+    markdown_html = markdown_to_htmlnode.markdown_to_html_node(raw_markdown)
+    markdown_headline = exctract_title(raw_markdown)
+    print(markdown_headline)
+    print(markdown_html)
+    updated_template = raw_template.replace('{{ Title }}', markdown_headline)
+    updated_template = updated_template.replace('{{ Content }}', markdown_html.to_html())
+    with open(dest_path, 'w') as d:
+        d.write(updated_template)
+
+
 def main():
     source = "./static/"
     target = "./public/"
@@ -68,42 +91,9 @@ def main():
         clean_dir(target)
     recursive_copy_content(source, target)
     clean_dir(source)
-    os.makedirs(os.path.dirname(dest_path))
+    #print(os.path.dirname(dest_path))
+    #os.makedirs(os.path.dirname(dest_path))
     generate_page(source_path, temp_path, dest_path)
-
-
-
-def exctract_title(markdown):
-    line_rows = markdown.splitlines()
-    for line in line_rows:
-        if line.startswith("# "):
-            return line.split(" ", 1)[1]
-    raise Exception("no h1 Headline found")
-
-
-def generate_page(from_path, template_path, dest_path):
-    print(f'Generating page from {from_path} to {dest_path} using {template_path}')
-    with open(from_path, 'r', encoding='utf-8') as f:
-        raw_markdown = f.read()
-    with open(template_path, 'r', encoding='utf-8') as f:
-        raw_template = f.read()
-    markdown_html = markdown_to_htmlnode(raw_markdown)
-    markdown_headline = exctract_title(raw_markdown)
-    updated_template = raw_template.replace('{{ Title }}', markdown_headline)
-    updated_template = updated_template.replace('{{ Content }}', markdown_html)
-    with open(dest_path, 'w') as d:
-        d.write(updated_template)
-    
-  
-
-
-
-
-    
-    
-
-
-
 
 
 if __name__ == "__main__":

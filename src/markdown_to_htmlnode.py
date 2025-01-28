@@ -35,15 +35,15 @@ def header_to_html(markdown):
     amount = text[0].count("#")
     children = text_to_children(text[1])
     node = ParentNode(f'h{amount}', children)
-    node_html = node.to_html()
+    node_html = node#.to_html()
     return node_html
 
 
 def code_to_html(markdown):
     text = markdown.split("```")
     value = text[1]
-    node_code = LeafNode("code", value).to_html()
-    node_pre = LeafNode('pre', node_code).to_html()
+    node_code = LeafNode("code", value)#.to_html()
+    node_pre = LeafNode('pre', node_code)#.to_html()
     return node_pre
 
 
@@ -53,7 +53,7 @@ def quote_to_html(markdown):
         text_body = line.split(" ", 1)[1]
         nodes = text_to_children(text_body)
         children.append(ParentNode("p", nodes))
-    return ParentNode("blockquote", children).to_html()
+    return ParentNode("blockquote", children)#.to_html()
 
 
 def ul_list_to_html(markdown):
@@ -62,7 +62,7 @@ def ul_list_to_html(markdown):
         text_body = line.split(" ", 1)[1]
         nodes = text_to_children(text_body)
         children.append(ParentNode("li", nodes))
-    return ParentNode("ul", children).to_html()
+    return ParentNode("ul", children)#.to_html()
 
 
 def ol_list_to_html(markdown):
@@ -71,7 +71,7 @@ def ol_list_to_html(markdown):
         text_body = line.split(" ", 1)[1]
         nodes = text_to_children(text_body)
         children.append(ParentNode("li", nodes))
-    return ParentNode("ol", children).to_html()
+    return ParentNode("ol", children)#.to_html()
 
 
 def paragraph_to_html(markdown):
@@ -82,7 +82,7 @@ def paragraph_to_html(markdown):
         children.extend(nodes)
         if i < len(lines) - 1:
             children.append(LeafNode(None, "<br>"))
-    return ParentNode("p", children).to_html()
+    return ParentNode("p", children)#.to_html()
 
 
 def text_to_children(markdown):
