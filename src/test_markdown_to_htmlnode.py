@@ -24,9 +24,9 @@ This is a new paragraph line
 - This is a **list** item
 - This is another list item
 
-* This is the first *list* item in a list block
-* This is a **list** item
-* This is another list item
+* First item with a *different* style
+* Another **unique** item here
+* Third distinct item
 
 1. list *one*
 2. list **two**
@@ -55,7 +55,9 @@ This is a new paragraph line
             LeafNode(None, "This is a new paragraph line")
         ]),
         ParentNode("pre", [
-            LeafNode("code", "this is some cool code")
+            ParentNode("code", [
+                LeafNode(None, "this is some cool code")
+            ])
         ]),
         ParentNode("blockquote", [
             ParentNode("p", [
@@ -89,27 +91,27 @@ This is a new paragraph line
         ]),
         ParentNode("ul", [
             ParentNode("li", [
-                LeafNode(None, "This is the first "),
-                LeafNode("i", "list"),
-                LeafNode(None, " item in a list block")
+                LeafNode(None, "First item with a "),
+                LeafNode("i", "different"),
+                LeafNode(None, " style")
             ]),
             ParentNode("li", [
-                LeafNode(None, "This is a "),
-                LeafNode("b", "list"),
-                LeafNode(None, " item")
+                LeafNode(None, "Another "),
+                LeafNode("b", "unique"),
+                LeafNode(None, " item here")
             ]),
             ParentNode("li", [
-                LeafNode(None, "This is another list item")
+                LeafNode(None, "Third distinct item")
             ])
         ]),
         ParentNode("ol", [
             ParentNode("li", [
                 LeafNode(None, "list "),
-                LeafNode("i", "one"),
+                LeafNode("i", "one")
             ]),
             ParentNode("li", [
                 LeafNode(None, "list "),
-                LeafNode("b", "two"),
+                LeafNode("b", "two")
             ]),
             ParentNode("li", [
                 LeafNode(None, "list three")
@@ -118,9 +120,7 @@ This is a new paragraph line
     ]
 )
         
-
         result = markdown_to_html_node(test_string)
-        #print(result)
 
         self.assertEqual(result, expected, "Test failed: test_complex_string_assert")
 
