@@ -1,6 +1,6 @@
 import unittest
 from markdown_to_htmlnode import markdown_to_html_node
-from htmlnode import ParentNode
+from htmlnode import ParentNode, LeafNode
 
 
 class TestTextToTextNodes(unittest.TestCase):
@@ -34,149 +34,95 @@ This is a new paragraph line
 
         
         expected = ParentNode(
-            "div",
-            [
-                ParentNode("h3",
-                           [
-                               LeafNode(None, "This is a "),
-                               LeafNode("b", "cool"),
-                               LeafNode(None, " heading")
-                               ]
-                               ),
-                               ParentNode("p",
-                                          [
-                                              LeafNode(None, "This is a paragraph of text. It has some "),
-                                              LeafNode("b", "bold"),
-                                              LeafNode(None, " and "),
-                                              LeafNode("i", "italic"),
-                                              LeafNode(None, " words inside of it."),
-                                              LeafNode(None, "<br>"),
-                                              LeafNode(None, "This is a second line o paragraph code with "),
-                                              LeafNode("b", "bold"),
-                                              LeafNode(None, " test.")
-                                              ]
-                                              ),
-                                              ParentNode(
-                                                  "p",
-                                                  [
-                                                      LeafNode(None, "This is a new paragraph line")
-                                                      ]
-                                                      ),
-                                                      LeafNode("pre",
-                                                               LeafNode("code", "this is some cool code")
-                                                               ),
-                                                               ParentNode(
-                                                                   "blockquote",
-                                                                   [
-                                                                       ParentNode(
-                                                                           "p",
-                                                                           [
-                                                                               LeafNode(None, "quote line 1 with "),
-                                                                               LeafNode("i", "italic"),
-                                                                               LeafNode(None, " text")
-                                                                               ]
-                                                                               ),
-                                                                               ParentNode(
-                                                                                   "p",
-                                                                                   [
-                                                                                       LeafNode(None, "quote line 2 with "),
-                                                                                       LeafNode("b", "bold"),
-                                                                                       LeafNode(None, " text")
-                                                                                       ]
-                                                                                       ),
-                                                                                       ParentNode(
-                                                                                           "p",
-                                                                                           [
-                                                                                               LeafNode(None, "quote line 3")
-                                                                                               ]
-                                                                                               )
-                                                                                               ]
-                                                                                               ),
-                                                                                               ParentNode(
-                                                                                                   "ul",
-                                                                                                   [
-                                                                                                       ParentNode(
-                                                                                                           "li",
-                                                                                                           [
-                                                                                                               LeafNode(None, "This is the first "),
-                                                                                                               LeafNode("i", "list"),
-                                                                                                               LeafNode(None, " item in a list block")
-                                                                                                               ]
-                                                                                                               ),
-                                                                                                               ParentNode(
-                                                                                                                   "li",
-                                                                                                                   [
-                                                                                                                       LeafNode(None, "This is a "),
-                                                                                                                       LeafNode("b", "list"),
-                                                                                                                       LeafNode(None, " item")
-                                                                                                                       ],
-                                                                                                                       ParentNode(
-                                                                                                                           "li",
-                                                                                                                           [
-                                                                                                                               LeafNode(None, "This is another list item")
-                                                                                                                               ]
-                                                                                                                               )
-                                                                                                                               ]
-                                                                                                                               ),
-                                                                                                                               ParentNode(
-                                                                                                                                   "ul",
-                                                                                                                                   [
-                                                                                                                                       ParentNode(
-                                                                                                                                           "li",
-                                                                                                                                           [
-                                                                                                                                               LeafNode(None, "This is the first "),
-                                                                                                                                               LeafNode("i", "list"),
-                                                                                                                                               LeafNode(None, " item in a list block")
-                                                                                                                                               ]
-                                                                                                                                               ),
-                                                                                                                                               ParentNode(
-                                                                                                                                                   "li",
-                                                                                                                                                   [
-                                                                                                                                                       LeafNode(None, "This is a "),
-                                                                                                                                                       LeafNode("b", "list"),
-                                                                                                                                                       LeafNode(None,  "item")
-                                                                                                                                                       ]
-                                                                                                                                                       ),
-                                                                                                                                                       ParentNode(
-                                                                                                                                                           "li",
-                                                                                                                                                           [
-                                                                                                                                                               LeafNode(None, "This is another list item")
-                                                                                                                                                               ]
-                                                                                                                                                               )
-                                                                                                                                                               ]
-                                                                                                                                                               ),
-                                                                                                                                                               ParentNode(
-                                                                                                                                                                   "ol",
-                                                                                                                                                                   [
-                                                                                                                                                                       ParentNode(
-                                                                                                                                                                           "li",
-                                                                                                                                                                           [
-                                                                                                                                                                               LeafNode(None, "list "),
-                                                                                                                                                                               LeafNode("i", "one"),
-                                                                                                                                                                               LeafNode(None,"")
-                                                                                                                                                                               ]
-                                                                                                                                                                               ),
-                                                                                                                                                                               ParentNode(
-                                                                                                                                                                                   "li",
-                                                                                                                                                                                   [
-                                                                                                                                                                                       LeafNode(None, "list "),
-                                                                                                                                                                                       LeafNode("b", "two"),
-                                                                                                                                                                                       LeafNode(None,"")
-                                                                                                                                                                                       ]
-                                                                                                                                                                                       ),
-                                                                                                                                                                                       ParentNode(
-                                                                                                                                                                                           "li",
-                                                                                                                                                                                           [LeafNode(None, "list three")
-                                                                                                                                                                                            ]
-                                                                                                                                                                                            )
-                                                                                                                                                                                            ]
-                                                                                                                                                                                            )
-                                                                                                                                                                                            ]
-                                                                                                                                                                                            )
-        result = markdown_to_html_node(test_string)
-        print(result)
+    "div", [
+        ParentNode("h3", [
+            LeafNode(None, "This is a "),
+            LeafNode("b", "cool"),
+            LeafNode(None, " heading")
+        ]),
+        ParentNode("p", [
+            LeafNode(None, "This is a paragraph of text. It has some "),
+            LeafNode("b", "bold"),
+            LeafNode(None, " and "),
+            LeafNode("i", "italic"),
+            LeafNode(None, " words inside of it."),
+            LeafNode(None, "<br>"),
+            LeafNode(None, "This is a second line o paragraph code with "),
+            LeafNode("b", "bold"),
+            LeafNode(None, " test.")
+        ]),
+        ParentNode("p", [
+            LeafNode(None, "This is a new paragraph line")
+        ]),
+        ParentNode("pre", [
+            LeafNode("code", "this is some cool code")
+        ]),
+        ParentNode("blockquote", [
+            ParentNode("p", [
+                LeafNode(None, "quote line 1 with "),
+                LeafNode("i", "italic"),
+                LeafNode(None, " text")
+            ]),
+            ParentNode("p", [
+                LeafNode(None, "quote line 2 with "),
+                LeafNode("b", "bold"),
+                LeafNode(None, " text")
+            ]),
+            ParentNode("p", [
+                LeafNode(None, "quote line 3")
+            ])
+        ]),
+        ParentNode("ul", [
+            ParentNode("li", [
+                LeafNode(None, "This is the first "),
+                LeafNode("i", "list"),
+                LeafNode(None, " item in a list block")
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "This is a "),
+                LeafNode("b", "list"),
+                LeafNode(None, " item")
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "This is another list item")
+            ])
+        ]),
+        ParentNode("ul", [
+            ParentNode("li", [
+                LeafNode(None, "This is the first "),
+                LeafNode("i", "list"),
+                LeafNode(None, " item in a list block")
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "This is a "),
+                LeafNode("b", "list"),
+                LeafNode(None, " item")
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "This is another list item")
+            ])
+        ]),
+        ParentNode("ol", [
+            ParentNode("li", [
+                LeafNode(None, "list "),
+                LeafNode("i", "one"),
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "list "),
+                LeafNode("b", "two"),
+            ]),
+            ParentNode("li", [
+                LeafNode(None, "list three")
+            ])
+        ])
+    ]
+)
+        
 
-        #self.assertEqual(result, expected, "Test failed: test_complex_string_assert")
+        result = markdown_to_html_node(test_string)
+        #print(result)
+
+        self.assertEqual(result, expected, "Test failed: test_complex_string_assert")
 
 
     def test_with_incomplete_markup_sequence(self):

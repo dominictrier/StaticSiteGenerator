@@ -43,7 +43,7 @@ def code_to_html(markdown):
     text = markdown.split("```")
     value = text[1]
     node_code = LeafNode("code", value)#.to_html()
-    node_pre = LeafNode('pre', node_code)#.to_html()
+    node_pre = ParentNode('pre', node_code)#.to_html()
     return node_pre
 
 
