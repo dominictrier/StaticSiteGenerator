@@ -54,7 +54,10 @@ def quote_to_html(markdown):
     for line in markdown.splitlines():
         text_body = line.split(" ", 1)[1]
         nodes = text_to_children(text_body)
-        children.append(ParentNode("p", nodes))
+        children.extend(nodes)
+    if len(children) > 1:
+        for i, child in enumerate(children):
+            children[i] = ParentNode("p", [child])
     return ParentNode("blockquote", children)
 
 
@@ -74,21 +77,6 @@ def ol_list_to_html(markdown):
         nodes = text_to_children(text_body)
         children.append(ParentNode("li", nodes))
     return ParentNode("ol", children)
-
-
-# def paragraph_to_html(markdown):
-#     children = []
-#     lines = markdown.splitlines()
-
-#     for i, line in enumerate(lines):
-#         nodes = text_to_children(line)
-#         if nodes and i < len(lines) -1:
-#             last_node = nodes[-1]
-#             new_node = LeafNode(last_node.tag, last_node.value + "<br>")
-#             nodes[-1] = new_node
-#         children.extend(nodes)
-
-#     return ParentNode("p", children)
 
 
 def paragraph_to_html(markdown):

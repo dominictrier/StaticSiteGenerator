@@ -68,20 +68,33 @@ def generate_page(from_path, template_path, dest_path):
         raw_template = t.read()
     markdown_html = markdown_to_htmlnode.markdown_to_html_node(raw_markdown)
     markdown_headline = exctract_title(raw_markdown)
-    print(markdown_headline)
-    print(markdown_html)
     updated_template = raw_template.replace('{{ Title }}', markdown_headline)
     updated_template = updated_template.replace('{{ Content }}', markdown_html.to_html())
-    with open(dest_path, 'w') as d:
+    dest_path_updated = dest_path.rsplit('.', 1)[0] + "." + "html"
+    with open(dest_path_updated, 'w') as d:
         d.write(updated_template)
+
+
+def generate_pages_recursively(dir_path_content, template_path, dest_dir_path):
+    dir_content = os.listdir(dir_path_content)
+    for item in dir_content:
+        path_source = os.path.join(dir_path_content, item)
+        path_target = os.path.join(dest_dir_path, item)
+        if os.path.isfile(path_source):
+            if os.path.splitext(item)[1] == ".md":
+                print(f'called function: {path_source} / {template_path} / {path_target}')
+                generate_page(path_source, template_path, path_target)
+        elif os.path.isdir(path_source):
+            os.makedirs(path_target, exist_ok=True)
+            generate_pages_recursively(path_source, template_path, path_target)
 
 
 def main():
     source = "./static/"
     target = "./public/"
-    source_path = "./content/index.md"
+    source_path = "./content/"
     temp_path = "./template.html"
-    dest_path = "./public/index.html"
+    dest_path = "./public/"
     assure_exists(target, "yes")
     if not assure_exists(source):
         raise Exception("no source directory")
@@ -91,9 +104,7 @@ def main():
         clean_dir(target)
     recursive_copy_content(source, target)
     clean_dir(source)
-    #print(os.path.dirname(dest_path))
-    #os.makedirs(os.path.dirname(dest_path))
-    generate_page(source_path, temp_path, dest_path)
+    generate_pages_recursively(source_path, temp_path, dest_path)
 
 
 if __name__ == "__main__":
